@@ -4,48 +4,24 @@
     --secondary-color: #f4f4f4;
     --text-color: #333;
 }
-
-/* Reset simple */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-html {
-    /* Permet un défilement fluide lors du clic sur les liens du menu */
-    scroll-behavior: smooth;
-}
-
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     line-height: 1.6;
     color: var(--text-color);
 }
-
-h1, h2, h3, h4 {
-    margin-bottom: 1rem;
-    color: var(--primary-color);
-}
-
+h1, h2, h3, h4 { margin-bottom: 1rem; color: var(--primary-color); }
 h2 {
     text-align: center;
     font-size: 2rem;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
-
 section {
-    /* min-height: 90vh; */ /* Désactivé pour un flux plus naturel */
     padding: 4rem 2rem;
-    border-bottom: 1px solid #ddd;
 }
-
-img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-}
+img { max-width: 100%; height: auto; display: block; }
 
 /* ======== HEADER & NAVIGATION ======== */
 header {
@@ -55,80 +31,20 @@ header {
     padding: 1rem 2rem;
     background-color: #fff;
     border-bottom: 2px solid var(--secondary-color);
-
-    /* Le rend collant en haut de la page */
-    position: sticky;
+    position: sticky; /* Reste en haut */
     top: 0;
-    z-index: 1000;
+    z-index: 1000; /* Toujours au-dessus de tout */
 }
-
-.logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--primary-color);
-}
-
-.nav-desktop ul {
-    list-style: none;
-    display: flex;
-    gap: 1.5rem;
-}
-
-.nav-desktop a {
-    text-decoration: none;
-    color: var(--text-color);
-    font-weight: 600;
-    transition: color 0.3s;
-}
-
-.nav-desktop a:hover {
-    color: var(--primary-color);
-}
-
-/* Menu mobile */
-.hamburger {
-    display: none; /* Caché sur desktop */
-    font-size: 1.8rem;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: var(--primary-color);
-}
-
-.nav-mobile {
-    display: none; /* Géré par JS et média queries */
-    flex-direction: column;
-    background-color: #fff;
-    position: fixed;
-    top: 65px; /* Hauteur du header */
-    left: 0;
-    width: 100%;
-    z-index: 999;
-    border-bottom: 2px solid var(--secondary-color);
-    /* Animation */
-    transform: translateY(-100%);
-    transition: transform 0.3s ease-out;
-}
-
-.nav-mobile.is-open {
-    transform: translateY(0);
-}
-
-.nav-mobile-link {
-    text-decoration: none;
-    color: var(--text-color);
-    font-weight: 600;
-    padding: 1rem 2rem;
-    text-align: center;
-    border-bottom: 1px solid var(--secondary-color);
-}
-.nav-mobile-link:last-child {
-    border-bottom: none;
-}
-.nav-mobile-link:hover {
-    background-color: var(--secondary-color);
-}
-
+.logo { font-size: 1.5rem; font-weight: bold; color: var(--primary-color); }
+.nav-desktop ul { list-style: none; display: flex; gap: 1.5rem; }
+.nav-desktop a { text-decoration: none; color: var(--text-color); font-weight: 600; transition: color 0.3s; }
+.nav-desktop a:hover { color: var(--primary-color); }
+.hamburger { display: none; font-size: 1.8rem; background: none; border: none; cursor: pointer; color: var(--primary-color); }
+.nav-mobile { display: none; flex-direction: column; background-color: #fff; position: fixed; top: 65px; left: 0; width: 100%; z-index: 999; border-bottom: 2px solid var(--secondary-color); transform: translateY(-100%); transition: transform 0.3s ease-out; }
+.nav-mobile.is-open { transform: translateY(0); }
+.nav-mobile-link { text-decoration: none; color: var(--text-color); font-weight: 600; padding: 1rem 2rem; text-align: center; border-bottom: 1px solid var(--secondary-color); }
+.nav-mobile-link:last-child { border-bottom: none; }
+.nav-mobile-link:hover { background-color: var(--secondary-color); }
 
 /* ======== SECTION ACCUEIL (HERO) ======== */
 #accueil {
@@ -136,95 +52,118 @@ header {
     grid-template-columns: 1fr 1fr;
     align-items: center;
     gap: 2rem;
-    min-height: calc(100vh - 65px); /* Pleine hauteur moins le header */
+    min-height: calc(100vh - 65px);
+    background: #fff; /* Fond blanc pour cacher le dégradé en dessous */
+    position: relative; /* Pour être au-dessus du budget */
+    z-index: 5; /* Se place au-dessus de la section budget au début */
 }
+.hero-content h1 { font-size: 3rem; font-weight: 900; }
+.cta-button { background-color: var(--primary-color); color: white; padding: 0.8rem 1.5rem; border: none; border-radius: 5px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: background-color 0.3s; }
+.cta-button:hover { background-color: #003366; }
+.hero-image { text-align: center; }
+.hero-image img { border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+.hero-image span { display: block; margin-top: 0.5rem; font-style: italic; color: #555; }
 
-.hero-content h1 {
-    font-size: 3rem;
-    font-weight: 900;
-}
-
-.cta-button {
-    background-color: var(--primary-color);
-    color: white;
-    padding: 0.8rem 1.5rem;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.cta-button:hover {
-    background-color: #003366; /* Bleu plus foncé */
-}
-
-.hero-image {
-    text-align: center;
-}
-
-.hero-image img {
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-
-.hero-image span {
-    display: block;
-    margin-top: 0.5rem;
-    font-style: italic;
-    color: #555;
-}
-
-/* ======== SECTION BUDGET ======== */
+/* ======== SECTION BUDGET (MODIFIÉE) ======== */
 #budget {
-    background-color: var(--secondary-color);
-}
-
-.budget-container {
+    /* Effet de "skip" :
+      Cette section "colle" en haut de l'écran (sous le header)
+      pendant qu'on la fait défiler sur 100vh.
+      La section #accueil défile "en dessous".
+    */
+    position: sticky;
+    top: 65px; /* Hauteur du header */
+    height: 100vh; /* Colle pendant une hauteur de 100vh */
+    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 3rem;
-    flex-wrap: wrap; /* S'adapte sur petits écrans */
-    margin-top: 2rem;
+    overflow: hidden; /* Cache le dégradé qui dépasse */
+
+    /* Le fond dégradé animé est sur un pseudo-élément
+      pour être derrière le graphique.
+    */
 }
 
-.pie-chart {
-    width: 250px;
-    height: 250px;
-    border-radius: 50%;
-    /* Le camembert magique en CSS */
-    background: conic-gradient(
-            #3498db 0% 40%,    /* Soirées 40% */
-            #e74c3c 40% 65%,    /* Clubs 25% */
-            #f1c40f 65% 80%,    /* Comm 15% */
-            #2ecc71 80% 90%,    /* Voyages 10% */
-            #9b59b6 90% 100%   /* Imprévus 10% */
+#budget::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 1; /* Derrière le contenu */
+
+    /* Le dégradé bleu */
+    background: linear-gradient(
+            -45deg,
+            #e0f7fa, /* Bleu très clair */
+            #b3e5fc,
+            #81d4fa,
+            #29b6f6  /* Bleu BDE */
     );
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    /* L'animation */
+    background-size: 400% 400%;
+    animation: animated-gradient 10s ease infinite;
 }
 
-.legend {
-    list-style: none;
+/* L'animation qui fait bouger le fond */
+@keyframes animated-gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
-.legend li {
-    display: flex;
-    align-items: center;
-    margin-bottom: 0.75rem;
+/* Wrapper pour le contenu, pour qu'il soit au-dessus du fond */
+.budget-content-wrapper {
+    position: relative;
+    z-index: 2; /* Au-dessus du fond */
+    width: 100%;
+    max-width: 600px; /* Limite la taille du graphique */
+}
+
+.chart-container {
+    width: 100%;
+    position: relative; /* Pour centrer le solde */
+}
+
+/* Style du solde au centre */
+.solde-container {
+    position: absolute;
+    top: 80%; /* Positionné vers le bas du demi-cercle */
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    z-index: 3; /* Au-dessus du graphique */
+    color: #fff; /* Texte blanc pour contraster */
+    text-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+.solde-container span {
     font-size: 1rem;
 }
-
-.color-box {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-    border: 1px solid #ccc;
-    display: inline-block;
+.solde-montant {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #fff;
 }
 
-/* ======== SECTION ANNONCES & IDÉES ======== */
+
+/* ======== SECTION ANNONCES & IDÉES (MODIFIÉE) ======== */
+#annonces-idees {
+    /* Effet de "coupe" :
+      Cette section a un fond blanc et un z-index supérieur
+      à la section budget. En scrollant, elle va
+      naturellement "recouvrir" la section budget qui est "sticky".
+    */
+    position: relative;
+    z-index: 6; /* Au-dessus de #accueil et #budget */
+    background: white; /* ESSENTIEL pour couvrir la section budget */
+    border-top: 3px solid var(--primary-color);
+}
+
+/* La barre de séparation */
+#annonces-title {
+    padding-bottom: 2rem;
+    border-bottom: 2px solid #eee;
+}
+
 .content-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -232,45 +171,12 @@ header {
     margin-top: 2rem;
 }
 
-.annonces-col, .idees-col {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.card {
-    background: #fff;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 1.5rem;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-}
-
-.proposal-card {
-    background-color: #fdfdfd;
-}
-
-.profile {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 1rem;
-    padding-top: 1rem;
-    border-top: 1px dashed #ccc;
-}
-
-.profile img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: #eee;
-}
-
-.profile span {
-    font-weight: 600;
-    font-size: 0.9rem;
-    color: #555;
-}
+.annonces-col, .idees-col { display: flex; flex-direction: column; gap: 1.5rem; }
+.card { background: #fff; border: 1px solid #e0e0e0; border-radius: 8px; padding: 1.5rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+.proposal-card { background-color: #fdfdfd; }
+.profile { display: flex; align-items: center; gap: 10px; margin-top: 1rem; padding-top: 1rem; border-top: 1px dashed #ccc; }
+.profile img { width: 40px; height: 40px; border-radius: 50%; background-color: #eee; }
+.profile span { font-weight: 600; font-size: 0.9rem; color: #555; }
 
 /* ======== FOOTER ======== */
 footer {
@@ -278,42 +184,20 @@ footer {
     padding: 2rem;
     background-color: var(--text-color);
     color: white;
+    position: relative; /* Nécessaire pour l'affichage */
+    z-index: 6; /* Doit être au-dessus du sticky */
 }
 
 /* ======== RESPONSIVE (POUR MOBILES) ======== */
 @media (max-width: 768px) {
-    /* Passe les grilles en une seule colonne */
-    #accueil, .content-grid {
-        grid-template-columns: 1fr;
-    }
-
-    /* Inverse l'ordre sur mobile pour avoir l'image en premier */
-    #accueil {
-        text-align: center;
-    }
-    .hero-image {
-        grid-row: 1; /* Place l'image en haut */
-    }
-    .hero-content {
-        grid-row: 2; /* Place le texte en bas */
-    }
-    .hero-content h1 {
-        font-size: 2.5rem;
-    }
-
-    /* Gère le menu mobile */
-    .nav-desktop {
-        display: none;
-    }
-    .hamburger {
-        display: block;
-    }
-    .nav-mobile {
-        display: flex; /* Le JS gérera l'affichage avec la classe .is-open */
-    }
-
-    .budget-container {
-        flex-direction: column;
-        gap: 2rem;
-    }
+    #accueil, .content-grid { grid-template-columns: 1fr; }
+    #accueil { text-align: center; }
+    .hero-image { grid-row: 1; }
+    .hero-content { grid-row: 2; }
+    .hero-content h1 { font-size: 2.5rem; }
+    .nav-desktop { display: none; }
+    .hamburger { display: block; }
+    .nav-mobile { display: flex; }
+    .solde-montant { font-size: 1.8rem; }
+    .solde-container { top: 75%; }
 }

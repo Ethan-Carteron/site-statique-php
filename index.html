@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Site du BDE</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 <body>
 
@@ -42,24 +44,25 @@
         </div>
     </section>
 
+
     <section id="budget">
-        <h2>— BUDGET & ACTIVITÉS —</h2>
-        <div class="budget-container">
-            <div class="pie-chart-container">
-                <div class="pie-chart" role="img" aria-label="Camembert du budget"></div>
+        <div class="budget-content-wrapper">
+
+            <div class="solde-container">
+                <span>Solde du compte</span>
+                <div class="solde-montant">12 458,30 €</div>
             </div>
-            <ul class="legend">
-                <li><span class="color-box" style="background-color: #3498db;"></span>Soirées & Événements (40%)</li>
-                <li><span class="color-box" style="background-color: #e74c3c;"></span>Activités Clubs (25%)</li>
-                <li><span class="color-box" style="background-color: #f1c40f;"></span>Communication & Matériel (15%)</li>
-                <li><span class="color-box" style="background-color: #2ecc71;"></span>Voyages & Sorties (10%)</li>
-                <li><span class="color-box" style="background-color: #9b59b6;"></span>Imprévus & Admin (10%)</li>
-            </ul>
+
+            <div class="chart-container">
+                <canvas id="budget-chart"></canvas>
+            </div>
+
         </div>
     </section>
 
+
     <section id="annonces-idees">
-        <h2>— ANNONCES & IDÉES —</h2>
+        <h2 id="annonces-title">— ANNONCES & IDÉES —</h2>
         <div class="content-grid">
             <div class="annonces-col">
                 <h3>Annonces du BDE</h3>
