@@ -1,0 +1,319 @@
+/* ======== STYLES GÉNÉRAUX ======== */
+:root {
+    --primary-color: #004a99; /* Un bleu BDE */
+    --secondary-color: #f4f4f4;
+    --text-color: #333;
+}
+
+/* Reset simple */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    /* Permet un défilement fluide lors du clic sur les liens du menu */
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+}
+
+h1, h2, h3, h4 {
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+h2 {
+    text-align: center;
+    font-size: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+section {
+    /* min-height: 90vh; */ /* Désactivé pour un flux plus naturel */
+    padding: 4rem 2rem;
+    border-bottom: 1px solid #ddd;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ======== HEADER & NAVIGATION ======== */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #fff;
+    border-bottom: 2px solid var(--secondary-color);
+
+    /* Le rend collant en haut de la page */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.nav-desktop ul {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-desktop a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+.nav-desktop a:hover {
+    color: var(--primary-color);
+}
+
+/* Menu mobile */
+.hamburger {
+    display: none; /* Caché sur desktop */
+    font-size: 1.8rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--primary-color);
+}
+
+.nav-mobile {
+    display: none; /* Géré par JS et média queries */
+    flex-direction: column;
+    background-color: #fff;
+    position: fixed;
+    top: 65px; /* Hauteur du header */
+    left: 0;
+    width: 100%;
+    z-index: 999;
+    border-bottom: 2px solid var(--secondary-color);
+    /* Animation */
+    transform: translateY(-100%);
+    transition: transform 0.3s ease-out;
+}
+
+.nav-mobile.is-open {
+    transform: translateY(0);
+}
+
+.nav-mobile-link {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 600;
+    padding: 1rem 2rem;
+    text-align: center;
+    border-bottom: 1px solid var(--secondary-color);
+}
+.nav-mobile-link:last-child {
+    border-bottom: none;
+}
+.nav-mobile-link:hover {
+    background-color: var(--secondary-color);
+}
+
+
+/* ======== SECTION ACCUEIL (HERO) ======== */
+#accueil {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 2rem;
+    min-height: calc(100vh - 65px); /* Pleine hauteur moins le header */
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    font-weight: 900;
+}
+
+.cta-button {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+    background-color: #003366; /* Bleu plus foncé */
+}
+
+.hero-image {
+    text-align: center;
+}
+
+.hero-image img {
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.hero-image span {
+    display: block;
+    margin-top: 0.5rem;
+    font-style: italic;
+    color: #555;
+}
+
+/* ======== SECTION BUDGET ======== */
+#budget {
+    background-color: var(--secondary-color);
+}
+
+.budget-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    flex-wrap: wrap; /* S'adapte sur petits écrans */
+    margin-top: 2rem;
+}
+
+.pie-chart {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    /* Le camembert magique en CSS */
+    background: conic-gradient(
+            #3498db 0% 40%,    /* Soirées 40% */
+            #e74c3c 40% 65%,    /* Clubs 25% */
+            #f1c40f 65% 80%,    /* Comm 15% */
+            #2ecc71 80% 90%,    /* Voyages 10% */
+            #9b59b6 90% 100%   /* Imprévus 10% */
+    );
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.legend {
+    list-style: none;
+}
+
+.legend li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+}
+
+.color-box {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    display: inline-block;
+}
+
+/* ======== SECTION ANNONCES & IDÉES ======== */
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.annonces-col, .idees-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.card {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.proposal-card {
+    background-color: #fdfdfd;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px dashed #ccc;
+}
+
+.profile img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #eee;
+}
+
+.profile span {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+/* ======== FOOTER ======== */
+footer {
+    text-align: center;
+    padding: 2rem;
+    background-color: var(--text-color);
+    color: white;
+}
+
+/* ======== RESPONSIVE (POUR MOBILES) ======== */
+@media (max-width: 768px) {
+    /* Passe les grilles en une seule colonne */
+    #accueil, .content-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Inverse l'ordre sur mobile pour avoir l'image en premier */
+    #accueil {
+        text-align: center;
+    }
+    .hero-image {
+        grid-row: 1; /* Place l'image en haut */
+    }
+    .hero-content {
+        grid-row: 2; /* Place le texte en bas */
+    }
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+
+    /* Gère le menu mobile */
+    .nav-desktop {
+        display: none;
+    }
+    .hamburger {
+        display: block;
+    }
+    .nav-mobile {
+        display: flex; /* Le JS gérera l'affichage avec la classe .is-open */
+    }
+
+    .budget-container {
+        flex-direction: column;
+        gap: 2rem;
+    }
+}

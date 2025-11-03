@@ -1,14 +1,104 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset='utf-8'>
-    <title>Ceci est le titre principal</title>
-    <meta name="description"
-          content="la structure minimale d'une page wev en HTML">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site du BDE</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js"></script>
 </head>
-</html>
-
 <body>
-<h1>Ceci est un titre</h1>
-<p>Ceci est un paragraphe</p>
+
+<header>
+    <div class="logo">BDE [Nom Ecole]</div>
+    <nav class="nav-desktop">
+        <ul>
+            <li><a href="#accueil">Accueil</a></li>
+            <li><a href="#budget">Budget</a></li>
+            <li><a href="#annonces-idees">Annonces & Idées</a></li>
+        </ul>
+    </nav>
+    <button class="hamburger" id="hamburger-btn">
+        &#9776; </button>
+</header>
+
+<nav class="nav-mobile" id="nav-mobile">
+    <a href="#accueil" class="nav-mobile-link">Accueil</a>
+    <a href="#budget" class="nav-mobile-link">Budget</a>
+    <a href="#annonces-idees" class="nav-mobile-link">Annonces & Idées</a>
+</nav>
+
+<main>
+
+    <section id="accueil" class="hero-section">
+        <div class="hero-content">
+            <h1>LE BDE POUR EUX !</h1>
+            <p>Découvrez votre nouvelle équipe et nos projets pour l'année.</p>
+            <button class="cta-button">Know us!</button>
+        </div>
+        <div class="hero-image">
+            <img src="https://via.placeholder.com/600x400.png?text=Notre+%C3%89quipe+BDE+Souriante" alt="L'équipe du BDE">
+            <span>Ton équipe BDE !</span>
+        </div>
+    </section>
+
+    <section id="budget">
+        <h2>— BUDGET & ACTIVITÉS —</h2>
+        <div class="budget-container">
+            <div class="pie-chart-container">
+                <div class="pie-chart" role="img" aria-label="Camembert du budget"></div>
+            </div>
+            <ul class="legend">
+                <li><span class="color-box" style="background-color: #3498db;"></span>Soirées & Événements (40%)</li>
+                <li><span class="color-box" style="background-color: #e74c3c;"></span>Activités Clubs (25%)</li>
+                <li><span class="color-box" style="background-color: #f1c40f;"></span>Communication & Matériel (15%)</li>
+                <li><span class="color-box" style="background-color: #2ecc71;"></span>Voyages & Sorties (10%)</li>
+                <li><span class="color-box" style="background-color: #9b59b6;"></span>Imprévus & Admin (10%)</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="annonces-idees">
+        <h2>— ANNONCES & IDÉES —</h2>
+        <div class="content-grid">
+            <div class="annonces-col">
+                <h3>Annonces du BDE</h3>
+                <div class="card">
+                    <h4>🎉 Soirée d'Intégration</h4>
+                    <p>La grande soirée d'intégration aura lieu le <strong>Vendredi 15 Novembre</strong> ! Le thème est "Nuit Étoilée". Préparez vos tenues !</p>
+                </div>
+                <div class="card">
+                    <h4>☕ Ouverture de la nouvelle cafet'</h4>
+                    <p>Bonne nouvelle ! La nouvelle cafétéria gérée par le BDE ouvre ses portes Lundi prochain. Café à 0.50€ pour tous !</p>
+                </div>
+            </div>
+
+            <div class="idees-col">
+                <h3>Propositions des Élèves</h3>
+                <div class="card proposal-card">
+                    <p>"On devrait créer un club de jeux de société. On pourrait se réunir tous les mardis soirs."</p>
+                    <div class="profile">
+                        <img src="https://via.placeholder.com/40.png?text=L" alt="Avatar Léa">
+                        <span>Proposé par Léa D.</span>
+                    </div>
+                </div>
+                <div class="card proposal-card">
+                    <p>"Et si on organisait un voyage au ski en Février ? J'ai déjà des contacts pour des chalets pas chers !"</p>
+                    <div class="profile">
+                        <img src="https://via.placeholder.com/40.png?text=M" alt="Avatar Marc">
+                        <span>Proposé par Marc A.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer>
+    <p>© 2025 BDE [Nom de l'école]. Tous droits réservés.</p>
+</footer>
+
+<script src="script.js"></script>
 </body>
+</html>
