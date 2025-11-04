@@ -61,66 +61,90 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ============================================================
-    // NOUVEAU : ANIMATION DE SCROLL POUR LE GRAPHIQUE (Requête 2)
+    // ANIMATION AVANCÉE DU GRAPHIQUE
     // ============================================================
 
-    // On cible les éléments nécessaires pour l'animation
     const scrollContainer = document.querySelector('main.scroll-container');
     const budgetSection = document.getElementById('budget');
     const budgetChart = document.getElementById('budget-chart');
-    const headerHeight = 65; // Doit correspondre à --header-height en CSS
+    const headerHeight = 65;
 
-    // On utilise requestAnimationFrame pour une animation fluide
+    let lastScrollTop = 0;
     let ticking = false;
+    let attractionForce = 0;
+    let currentVelocity = 0;
+    const attractionRange = window.innerHeight * 1.5; // Zone d'attraction
+    const maxAttractionForce = 0.15; // Force maximale d'attraction
+    const dampening = 0.95; // Facteur d'amortissement
+
+    function easeInOutQuart(x) {
+        return x < 0.5 ? 8 * x * x * x * x : 1 - Math.pow(-2 * x + 2, 4) / 2;
+    }
 
     function handleScrollAnimation() {
-        // 1. Obtenir la position de la section budget
         const rect = budgetSection.getBoundingClientRect();
         const vh = window.innerHeight;
-
-        // `rect.top` est la distance entre le haut du viewport et le haut de la section #budget
-
+        const currentScrollTop = scrollContainer.scrollTop;
+        
+        // Variables pour les transformations
         let scale = 1;
         let translateY = 0;
+        let opacity = 1;
 
-        // 2. PHASE ZOOM-IN : Quand on scroll depuis l'ACCUEIL
-        // `rect.top` va de `vh` (bas de l'écran) à `headerHeight` (sticky)
+        // Distance du centre du viewport au centre de la section budget
+        const distanceFromCenter = Math.abs(rect.top + rect.height/2 - vh/2);
+        
+        // Calcul de la force d'attraction
+        if (distanceFromCenter < attractionRange) {
+            attractionForce = maxAttractionForce * (1 - distanceFromCenter/attractionRange);
+        } else {
+            attractionForce = 0;
+        }
+
+        // Calcul de la vitesse de défilement
+        const scrollDelta = currentScrollTop - lastScrollTop;
+        currentVelocity = scrollDelta * dampening + currentVelocity * (1 - dampening);
+
+        // PHASE DE ZOOM-IN
         if (rect.top > headerHeight) {
-            // Calcule le progrès de 0 (tout en bas) à 1 (en position sticky)
             const progress = 1 - (rect.top - headerHeight) / (vh - headerHeight);
-
-            // On s'assure que le progrès est entre 0 et 1
             const clampedProgress = Math.max(0, Math.min(1, progress));
-
-            // Le scale va de 0.5 (début) à 1 (fin)
-            scale = 0.5 + (clampedProgress * 0.5);
-            // Le translate va de 100px (bas) à 0 (position normale)
-            translateY = 100 - (clampedProgress * 100);
+            const easedProgress = easeInOutQuart(clampedProgress);
+            
+            scale = 0.3 + (easedProgress * 0.7);
+            translateY = 200 - (easedProgress * 200);
+            opacity = 0.3 + (easedProgress * 0.7);
         }
-
-            // 3. PHASE ZOOM-OUT : Quand la section ANNONCES recouvre le budget
-        // `rect.top` va de `headerHeight` (sticky) à 0 puis en négatif
+        // PHASE DE ZOOM-OUT
         else {
-            // Calcule le progrès de 0 (début du recouvrement) à 1 (totalement recouvert)
-            // On calcule sur une distance de 50% du viewport pour un effet plus rapide
             const progress = (headerHeight - rect.top) / (vh * 0.5);
-
-            // On s'assure que le progrès est entre 0 et 1
             const clampedProgress = Math.max(0, Math.min(1, progress));
-
-            // Le scale va de 1 (début) à 0.5 (fin)
-            scale = 1 - (clampedProgress * 0.5);
-            // Le translate va de 0 (position normale) à 100px (vers le bas)
-            translateY = clampedProgress * 100;
+            const easedProgress = easeInOutQuart(clampedProgress);
+            
+            scale = 1 - (easedProgress * 0.7);
+            translateY = easedProgress * 200;
+            opacity = 1 - (easedProgress * 0.7);
         }
 
-        // 4. Appliquer la transformation
-        // On cible le canvas pour ne pas affecter le "Solde"
+        // Application de l'effet d'attraction
+        if (Math.abs(currentVelocity) < 2 && attractionForce > 0) {
+            const targetScrollTop = budgetSection.offsetTop - (vh - budgetSection.offsetHeight) / 2;
+            const scrollDiff = targetScrollTop - currentScrollTop;
+            scrollContainer.scrollTo({
+                top: currentScrollTop + scrollDiff * attractionForce,
+                behavior: 'auto'
+            });
+        }
+
+        // Application des transformations avec une transition fluide
         if (budgetChart) {
             budgetChart.style.transform = `scale(${scale}) translateY(${translateY}px)`;
+            budgetChart.style.opacity = opacity;
+            budgetChart.style.transition = 'transform 0.3s ease-out, opacity 0.3s ease-out';
         }
 
-        ticking = false; // On autorise la prochaine frame
+        lastScrollTop = currentScrollTop;
+        ticking = false;
     }
 
     // Écoute le scroll sur le conteneur principal (et non 'window')

@@ -112,15 +112,20 @@ header {
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
     z-index: 1;
-    background: linear-gradient(
-            -45deg,
-            #e0f7fa,
-            #b3e5fc,
-            #81d4fa,
-            #29b6f6
-    );
-    background-size: 400% 400%;
-    animation: animated-gradient 10s ease infinite;
+    background: 
+        radial-gradient(circle at 50% 50%, 
+            rgba(255,255,255,0.1) 0%, 
+            rgba(255,255,255,0) 60%),
+        linear-gradient(
+            135deg,
+            #e6e6fa,
+            #9370db,
+            #483d8b,
+            #191970
+        );
+    background-size: 200% 200%, 400% 400%;
+    animation: animated-gradient 15s ease infinite;
+    box-shadow: inset 0 0 100px rgba(255,255,255,0.2);
 }
 
 @keyframes animated-gradient {
@@ -138,7 +143,9 @@ header {
 
 /* Le canvas pour l'animation de zoom */
 #budget-chart {
-    transition: opacity 0.3s ease;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+    will-change: transform, opacity;
+    backface-visibility: hidden;
 }
 
 /* Style du solde au centre */
