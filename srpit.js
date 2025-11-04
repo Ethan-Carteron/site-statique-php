@@ -1,7 +1,7 @@
 // Attend que le contenu de la page soit chargé
 document.addEventListener('DOMContentLoaded', () => {
 
-    // ======== GESTION DU MENU MOBILE ========
+    // ======== 1. GESTION DU MENU MOBILE ========
     const hamburgerButton = document.getElementById('hamburger-btn');
     const mobileNav = document.getElementById('nav-mobile');
     const mobileNavLinks = document.querySelectorAll('.nav-mobile-link');
@@ -18,79 +18,119 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-
-    // ======== NOUVEAU : GESTION DU GRAPHIQUE BUDGET ========
-
-    // 1. On récupère le canvas
+    // ======== 2. GESTION DU GRAPHIQUE BUDGET (CHART.JS) ========
     const ctx = document.getElementById('budget-chart');
-
-    // S'assure que l'élément existe avant de créer le graphique
     if (ctx) {
-        // 2. Les données (les mêmes qu'avant)
+        // ... (Tout le code de configuration de Chart.js est INCHANGÉ) ...
+        // ... Il crée le demi-cercle comme avant ...
         const data = {
             labels: [
-                'Soirées & Événements',
-                'Activités Clubs',
-                'Communication & Matériel',
-                'Voyages & Sorties',
-                'Imprévus & Admin'
+                'Soirées & Événements', 'Activités Clubs', 'Communication & Matériel',
+                'Voyages & Sorties', 'Imprévus & Admin'
             ],
             datasets: [{
                 label: 'Répartition du budget',
-                data: [40, 25, 15, 10, 10], // Les pourcentages
-                backgroundColor: [
-                    '#3498db',
-                    '#e74c3c',
-                    '#f1c40f',
-                    '#2ecc71',
-                    '#9b59b6'
-                ],
-                // C'est l'effet de "soulèvement" au survol
+                data: [40, 25, 15, 10, 10],
+                backgroundColor: ['#3498db', '#e74c3c', '#f1c40f', '#2ecc71', '#9b59b6'],
                 hoverOffset: 20,
-                borderColor: 'rgba(0,0,0,0.1)' // Petite bordure
+                borderColor: 'rgba(0,0,0,0.1)'
             }]
         };
-
-        // 3. La configuration du graphique
         const config = {
-            type: 'doughnut', // Type "donut" (camembert avec un trou)
+            type: 'doughnut',
             data: data,
             options: {
                 responsive: true,
                 maintainAspectRatio: true,
-
-                // --- C'EST ICI QU'ON LE TRANSFORME EN DEMI-CERCLE ---
-                rotation: -90,      // Commence à gauche (9h)
-                circumference: 180, // Fait un tour de 180° (un demi-cercle)
-                // ----------------------------------------------------
-
-                cutout: '60%', // La taille du trou au milieu
-
-                // On enlève la légende par défaut (on l'a déjà)
+                rotation: -90,
+                circumference: 180,
+                cutout: '60%',
                 plugins: {
-                    legend: {
-                        display: false
-                    },
-                    // Configuration de la "bulle" au survol (détail des dépenses)
+                    legend: { display: false },
                     tooltip: {
                         callbacks: {
                             label: function(context) {
-                                let label = context.label || '';
-                                if (label) {
-                                    label += ': ';
-                                }
-                                if (context.parsed !== null) {
-                                    label += context.parsed + '%';
-                                }
-                                return 'Détail: ' + label;
+                                return 'Détail: ' + context.label + ': ' + context.parsed + '%';
                             }
                         }
                     }
                 }
             }
         };
-
-        // 4. On crée le graphique !
         new Chart(ctx, config);
     }
+
+    // ============================================================
+    // NOUVEAU : ANIMATION DE SCROLL POUR LE GRAPHIQUE (Requête 2)
+    // ============================================================
+
+    // On cible les éléments nécessaires pour l'animation
+    const scrollContainer = document.querySelector('main.scroll-container');
+    const budgetSection = document.getElementById('budget');
+    const budgetChart = document.getElementById('budget-chart');
+    const headerHeight = 65; // Doit correspondre à --header-height en CSS
+
+    // On utilise requestAnimationFrame pour une animation fluide
+    let ticking = false;
+
+    function handleScrollAnimation() {
+        // 1. Obtenir la position de la section budget
+        const rect = budgetSection.getBoundingClientRect();
+        const vh = window.innerHeight;
+
+        // `rect.top` est la distance entre le haut du viewport et le haut de la section #budget
+
+        let scale = 1;
+        let translateY = 0;
+
+        // 2. PHASE ZOOM-IN : Quand on scroll depuis l'ACCUEIL
+        // `rect.top` va de `vh` (bas de l'écran) à `headerHeight` (sticky)
+        if (rect.top > headerHeight) {
+            // Calcule le progrès de 0 (tout en bas) à 1 (en position sticky)
+            const progress = 1 - (rect.top - headerHeight) / (vh - headerHeight);
+
+            // On s'assure que le progrès est entre 0 et 1
+            const clampedProgress = Math.max(0, Math.min(1, progress));
+
+            // Le scale va de 0.5 (début) à 1 (fin)
+            scale = 0.5 + (clampedProgress * 0.5);
+            // Le translate va de 100px (bas) à 0 (position normale)
+            translateY = 100 - (clampedProgress * 100);
+        }
+
+            // 3. PHASE ZOOM-OUT : Quand la section ANNONCES recouvre le budget
+        // `rect.top` va de `headerHeight` (sticky) à 0 puis en négatif
+        else {
+            // Calcule le progrès de 0 (début du recouvrement) à 1 (totalement recouvert)
+            // On calcule sur une distance de 50% du viewport pour un effet plus rapide
+            const progress = (headerHeight - rect.top) / (vh * 0.5);
+
+            // On s'assure que le progrès est entre 0 et 1
+            const clampedProgress = Math.max(0, Math.min(1, progress));
+
+            // Le scale va de 1 (début) à 0.5 (fin)
+            scale = 1 - (clampedProgress * 0.5);
+            // Le translate va de 0 (position normale) à 100px (vers le bas)
+            translateY = clampedProgress * 100;
+        }
+
+        // 4. Appliquer la transformation
+        // On cible le canvas pour ne pas affecter le "Solde"
+        if (budgetChart) {
+            budgetChart.style.transform = `scale(${scale}) translateY(${translateY}px)`;
+        }
+
+        ticking = false; // On autorise la prochaine frame
+    }
+
+    // Écoute le scroll sur le conteneur principal (et non 'window')
+    if (scrollContainer) {
+        scrollContainer.addEventListener('scroll', () => {
+            if (!ticking) {
+                window.requestAnimationFrame(handleScrollAnimation);
+                ticking = true;
+            }
+        });
+    }
+
 });
