@@ -3,28 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site du BDE</title>
+    <title>BDE [Nom de l’École] – Vie Étudiante, Événements & Projets</title>
+    <meta name="description" content="Découvrez le Bureau des Étudiants de [Nom de l’École] : actualités, budget, événements à venir et propositions étudiantes. Rejoignez la vie du campus !">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.[ton-domaine].fr/">
+    <meta name="author" content="BDE [Nom de l’École]">
+
+    <!-- Open Graph (Facebook, LinkedIn) -->
+    <meta property="og:title" content="BDE [Nom de l’École] – Vie Étudiante, Événements & Projets">
+    <meta property="og:description" content="Découvrez le Bureau des Étudiants de [Nom de l’École] : actualités, budget, événements à venir et propositions étudiantes.">
+    <meta property="og:image" content="https://via.placeholder.com/600x400.png?text=BDE+[Nom+de+l’École]">
+    <meta property="og:url" content="https://www.[ton-domaine].fr/">
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="BDE [Nom de l’École]">
+    <meta name="twitter:description" content="Rejoignez la vie du campus avec le BDE [Nom de l’École] : soirées, projets et annonces !">
+    <meta name="twitter:image" content="https://via.placeholder.com/600x400.png?text=BDE+[Nom+de+l’École]">
     <link rel="stylesheet" href="style.css">
-
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 </head>
-<body>
 
+<body>
 <header>
-    <div class="logo">BDE [Nom Ecole]</div>
-    <nav class="nav-desktop">
+    <div class="logo">
+        <a href="#accueil" aria-label="Accueil du site BDE [Nom de l'École]">BDE [Nom École]</a>
+    </div>
+    <nav class="nav-desktop" aria-label="Menu principal">
         <ul>
             <li><a href="#accueil">Accueil</a></li>
             <li><a href="#budget">Budget</a></li>
             <li><a href="#annonces-idees">Annonces & Idées</a></li>
         </ul>
     </nav>
-    <button class="hamburger" id="hamburger-btn">
-        &#9776; </button>
+    <button class="hamburger" id="hamburger-btn" aria-expanded="false" aria-controls="nav-mobile" aria-label="Ouvrir le menu mobile">
+        &#9776;
+    </button>
 </header>
 
-<nav class="nav-mobile" id="nav-mobile">
+<nav class="nav-mobile" id="nav-mobile" aria-label="Menu mobile">
     <a href="#accueil" class="nav-mobile-link">Accueil</a>
     <a href="#budget" class="nav-mobile-link">Budget</a>
     <a href="#annonces-idees" class="nav-mobile-link">Annonces & Idées</a>
@@ -34,74 +52,12 @@
 
     <section id="accueil" class="hero-section">
         <div class="hero-content">
-            <h1>LE BDE POUR EUX !</h1>
-            <p>Découvrez votre nouvelle équipe et nos projets pour l'année.</p>
-            <button class="cta-button">Know us!</button>
+            <h1>BDE [Nom de l’École] – Votre équipe étudiante engagée !</h1>
+            <p>Participez à la vie étudiante : événements, projets et idées pour rendre le campus plus dynamique.</p>
+            <a href="#annonces-idees" class="cta-button">Découvrir nos projets</a>
         </div>
         <div class="hero-image">
-            <img src="https://via.placeholder.com/600x400.png?text=Notre+%C3%89quipe+BDE+Souriante" alt="L'équipe du BDE">
-            <span>Ton équipe BDE !</span>
+            <img src="https://via.placeholder.com/600x400.png?text=Équipe+BDE+[Nom+École]" alt="Photo de l'équipe du BDE">
+            <span>Votre équipe BDE !</span>
         </div>
     </section>
-
-
-    <section id="budget">
-        <div class="budget-content-wrapper">
-
-            <div class="solde-container">
-                <span>Solde du compte</span>
-                <div class="solde-montant">12 458,30 €</div>
-            </div>
-
-            <div class="chart-container">
-                <canvas id="budget-chart"></canvas>
-            </div>
-
-        </div>
-    </section>
-
-
-    <section id="annonces-idees">
-        <h2 id="annonces-title">— ANNONCES & IDÉES —</h2>
-        <div class="content-grid">
-            <div class="annonces-col">
-                <h3>Annonces du BDE</h3>
-                <div class="card">
-                    <h4>🎉 Soirée d'Intégration</h4>
-                    <p>La grande soirée d'intégration aura lieu le <strong>Vendredi 15 Novembre</strong> ! Le thème est "Nuit Étoilée". Préparez vos tenues !</p>
-                </div>
-                <div class="card">
-                    <h4>☕ Ouverture de la nouvelle cafet'</h4>
-                    <p>Bonne nouvelle ! La nouvelle cafétéria gérée par le BDE ouvre ses portes Lundi prochain. Café à 0.50€ pour tous !</p>
-                </div>
-            </div>
-
-            <div class="idees-col">
-                <h3>Propositions des Élèves</h3>
-                <div class="card proposal-card">
-                    <p>"On devrait créer un club de jeux de société. On pourrait se réunir tous les mardis soirs."</p>
-                    <div class="profile">
-                        <img src="https://via.placeholder.com/40.png?text=L" alt="Avatar Léa">
-                        <span>Proposé par Léa D.</span>
-                    </div>
-                </div>
-                <div class="card proposal-card">
-                    <p>"Et si on organisait un voyage au ski en Février ? J'ai déjà des contacts pour des chalets pas chers !"</p>
-                    <div class="profile">
-                        <img src="https://via.placeholder.com/40.png?text=M" alt="Avatar Marc">
-                        <span>Proposé par Marc A.</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-</main>
-
-<footer>
-    <p>© 2025 BDE [Nom de l'école]. Tous droits réservés.</p>
-</footer>
-
-<script src="script.js"></script>
-</body>
-</html>
